@@ -11,11 +11,11 @@ def test_rescale(ideal_map_filename):
         (None, None, None, None, 10, 5),
     ]:
 
-        _, output_filename = tempfile.mkstemp()
+        _, output_map_filename = tempfile.mkstemp()
 
         maptools.rescale(
-            input_filename=ideal_map_filename,
-            output_filename=output_filename,
+            ideal_map_filename,
+            output_map_filename=output_map_filename,
             mean=mean,
             sdev=sdev,
             vmin=vmin,
@@ -24,4 +24,4 @@ def test_rescale(ideal_map_filename):
             offset=offset,
         )
 
-        assert os.path.exists(output_filename)
+        assert os.path.exists(output_map_filename)

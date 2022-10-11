@@ -9,14 +9,14 @@ def test_mask(ideal_map_filename, mask_filename):
 
         for shift in [True, False]:
 
-            _, output_filename = tempfile.mkstemp()
+            _, output_map_filename = tempfile.mkstemp()
 
             maptools.mask(
-                input_filename=ideal_map_filename,
-                output_filename=output_filename,
-                mask_filename=mask_filename,
+                ideal_map_filename,
+                output_map_filename=output_map_filename,
+                input_mask_filename=mask_filename,
                 fourier_space=fourier_space,
                 shift=shift,
             )
 
-            assert os.path.exists(output_filename)
+            assert os.path.exists(output_map_filename)

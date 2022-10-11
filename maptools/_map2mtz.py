@@ -12,23 +12,28 @@ import tempfile
 import maptools.external
 
 
+__all__ = ["map2mtz"]
+
+
 # Get the logger
 logger = logging.getLogger(__name__)
 
 
-def map2mtz(input_filename, output_filename=None, resolution=1):
+def map2mtz(
+    input_map_filename: str, output_hkl_filename: str = None, resolution: float = 1
+):
     """
     Compute the CC between two maps
 
     Args:
-        input_filename (str): The input map filename
-        output_filename (str): The output mtz filename
+        input_map_filename (str): The input map filename
+        output_hkl_filename (str): The output mtz filename
         resolution (float): The resolution
 
     """
     maptools.external.map2mtz(
-        mapin=os.path.abspath(input_filename),
-        hklout=os.path.abspath(output_filename),
+        mapin=os.path.abspath(input_map_filename),
+        hklout=os.path.abspath(output_hkl_filename),
         resolution=resolution,
         wd=tempfile.mkdtemp(),
         stdout=None,

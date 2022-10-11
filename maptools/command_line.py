@@ -20,9 +20,9 @@ def cc(args):
 
     """
     maptools.cc(
-        input_filename1=args.input,
-        input_filename2=args.input2,
-        output_filename=args.output,
+        input_map_filename1=args.input,
+        input_map_filename2=args.input2,
+        output_map_filename=args.output,
     )
 
 
@@ -35,7 +35,26 @@ def crop(args):
 
     """
     maptools.crop(
-        input_filename=args.input, output_filename=args.output, roi=args.roi
+        input_map_filename=args.input,
+        output_map_filename=args.output,
+        roi=args.roi,
+        origin=args.origin,
+    )
+
+
+def dilate(args):
+    """
+    Dilate a map
+
+    Args:
+        args (object): The parsed arguments
+
+    """
+    maptools.dilate(
+        input_map_filename=args.input,
+        output_map_filename=args.output,
+        kernel=args.kernel,
+        num_iter=args.num_iter,
     )
 
 
@@ -47,7 +66,25 @@ def edit(args):
         args (object): The parsed arguments
 
     """
-    maptools.edit(input_filename=args.input, voxel_size=args.voxel_size)
+    maptools.edit(
+        input_map_filename=args.input, voxel_size=args.voxel_size, origin=args.origin
+    )
+
+
+def erode(args):
+    """
+    Erode a map
+
+    Args:
+        args (object): The parsed arguments
+
+    """
+    maptools.erode(
+        input_map_filename=args.input,
+        output_map_filename=args.output,
+        kernel=args.kernel,
+        num_iter=args.num_iter,
+    )
 
 
 def fft(args):
@@ -59,8 +96,8 @@ def fft(args):
 
     """
     maptools.fft(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         mode=args.mode,
         shift=args.shift,
         normalize=args.normalize,
@@ -76,8 +113,8 @@ def filter(args):
 
     """
     maptools.filter(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         filter_type=args.type,
         filter_shape=args.shape,
         resolution=args.resolution,
@@ -112,9 +149,9 @@ def fsc(args):
 
     """
     maptools.fsc(
-        input_filename1=args.input,
-        input_filename2=args.input2,
-        output_filename=args.output,
+        input_map_filename1=args.input,
+        input_map_filename2=args.input2,
+        output_plot_filename=args.output,
         output_data_filename=args.output_data,
         nbins=args.nbins,
         resolution=args.resolution,
@@ -132,11 +169,30 @@ def fsc3d(args):
 
     """
     maptools.fsc3d(
-        input_filename1=args.input,
-        input_filename2=args.input2,
-        output_filename=args.output,
+        input_map_filename1=args.input,
+        input_map_filename2=args.input2,
+        output_map_filename=args.output,
         kernel=args.kernel,
         resolution=args.resolution,
+    )
+
+
+def genmask(args):
+    """
+    Generate a mask
+
+    Args:
+        args (object): The parsed arguments
+
+    """
+    maptools.genmask(
+        input_pdb_filename=args.input,
+        output_mask_filename=args.output,
+        atom_radius=args.atom_radius,
+        border=args.border,
+        shape=args.shape,
+        voxel_size=args.voxel_size,
+        sigma=args.sigma,
     )
 
 
@@ -149,8 +205,8 @@ def map2mtz(args):
 
     """
     maptools.map2mtz(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_hkl_filename=args.output,
         resolution=args.resolution,
     )
 
@@ -164,9 +220,9 @@ def mask(args):
 
     """
     maptools.mask(
-        input_filename=args.input,
-        output_filename=args.output,
-        mask_filename=args.mask,
+        input_map_filename=args.input,
+        input_mask_filename=args.mask,
+        output_map_filename=args.output,
         fourier_space=args.fourier_space,
         shift=args.shift,
     )
@@ -181,8 +237,8 @@ def pdb2map(args):
 
     """
     maptools.pdb2map(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_pdb_filename=args.input,
+        output_map_filename=args.output,
         resolution=args.resolution,
         grid=args.grid,
     )
@@ -197,8 +253,8 @@ def reorder(args):
 
     """
     maptools.reorder(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         axis_order=args.axis_order,
     )
 
@@ -212,7 +268,7 @@ def rebin(args):
 
     """
     maptools.rebin(
-        input_filename=args.input, output_filename=args.output, shape=args.shape
+        input_map_filename=args.input, output_map_filename=args.output, shape=args.shape
     )
 
 
@@ -225,8 +281,8 @@ def rescale(args):
 
     """
     maptools.rescale(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         mean=args.mean,
         sdev=args.sdev,
         vmin=args.min,
@@ -245,8 +301,8 @@ def rotate(args):
 
     """
     maptools.rotate(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         axes=args.axes,
         num=args.num,
     )
@@ -261,8 +317,9 @@ def segment(args):
 
     """
     maptools.segment(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
+        output_mask_filename=args.mask,
         num_objects=args.num_objects,
     )
 
@@ -276,8 +333,9 @@ def threshold(args):
 
     """
     maptools.threshold(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
+        output_mask_filename=args.mask,
         threshold=args.threshold,
         normalize=args.normalize,
         zero=args.zero,
@@ -293,8 +351,8 @@ def transform(args):
 
     """
     maptools.transform(
-        input_filename=args.input,
-        output_filename=args.output,
+        input_map_filename=args.input,
+        output_map_filename=args.output,
         offset=args.offset,
         rotation=args.rotation,
         translation=args.translation,
@@ -366,7 +424,46 @@ def main(args=None):
             dest="roi",
             type=lambda s: [int(x) for x in s.split(",")],
             default=None,
-            help="The region of interest (z0,y0,x0,z1,y1,x1)",
+            help="The region of interest to crop",
+        )
+        parser_crop.add_argument(
+            "--origin",
+            dest="origin",
+            type=lambda s: [int(x) for x in s.split(",")],
+            default=(0, 0, 0),
+            help="The origin to set",
+        )
+
+    def add_dilate_arguments(subparsers, parser_common):
+        """
+        Add command line arguments for the dilate command
+
+        """
+
+        # Create the parser for the "dilate" command
+        parser_dilate = subparsers.add_parser(
+            "dilate", parents=[parser_common], help="Dilate the map"
+        )
+
+        # Add some arguments
+        parser_dilate.add_argument(
+            "-o",
+            "--output",
+            dest="output",
+            type=str,
+            default="dilated.mrc",
+            help="The output map file",
+        )
+        parser_dilate.add_argument(
+            "-k", "--kernel", dest="kernel", type=int, default=3, help="The kernel size"
+        )
+        parser_dilate.add_argument(
+            "-n",
+            "--num_iter",
+            dest="num_iter",
+            type=int,
+            default=1,
+            help="The number of iterations",
         )
 
     def add_edit_arguments(subparsers, parser_common):
@@ -387,6 +484,45 @@ def main(args=None):
             type=lambda s: [int(x) for x in s.split(",")],
             default=None,
             help="The voxel size (sz, sy, sx)",
+        )
+        parser_edit.add_argument(
+            "--origin",
+            dest="origin",
+            type=lambda s: [int(x) for x in s.split(",")],
+            default=None,
+            help="Set the origin (z,y,x)",
+        )
+
+    def add_erode_arguments(subparsers, parser_common):
+        """
+        Add command line arguments for the erode command
+
+        """
+
+        # Create the parser for the "erode" command
+        parser_erode = subparsers.add_parser(
+            "erode", parents=[parser_common], help="Erode the map"
+        )
+
+        # Add some arguments
+        parser_erode.add_argument(
+            "-o",
+            "--output",
+            dest="output",
+            type=str,
+            default="eroded.mrc",
+            help="The output map file",
+        )
+        parser_erode.add_argument(
+            "-k", "--kernel", dest="kernel", type=int, default=3, help="The kernel size"
+        )
+        parser_erode.add_argument(
+            "-n",
+            "--num_iter",
+            dest="num_iter",
+            type=int,
+            default=1,
+            help="The number of iterations",
         )
 
     def add_fft_arguments(subparsers, parser_common):
@@ -606,6 +742,7 @@ def main(args=None):
             dest="axis",
             type=lambda s: [int(x) for x in s.split(",")],
             default=None,
+            action="append",
             help="The axes in which to compute the FSC",
         )
         parser_fsc.add_argument(
@@ -663,6 +800,61 @@ def main(args=None):
             type=float,
             default=None,
             help="The resolution to compute to",
+        )
+
+    def add_genmask_arguments(subparsers, parser_common):
+        """
+        Add command line arguments for the genmask command
+
+        """
+
+        # Create the parser for the "genmask" command
+        parser_genmask = subparsers.add_parser(
+            "genmask", parents=[parser_common], help="Compute the mask"
+        )
+
+        # Add some arguments
+        parser_genmask.add_argument(
+            "-o",
+            "--output",
+            dest="output",
+            type=str,
+            default="mask.mrc",
+            help="The output mask",
+        )
+        parser_genmask.add_argument(
+            "-r",
+            "--atom_radius",
+            dest="atom_radius",
+            type=float,
+            default=5,
+            help="The radius around the atoms to mask",
+        )
+        parser_genmask.add_argument(
+            "-b",
+            "--border",
+            dest="border",
+            type=int,
+            default=0,
+            help="The border pixels of the mask",
+        )
+        parser_genmask.add_argument(
+            "-s",
+            "--shape",
+            dest="shape",
+            type=lambda s: [int(x) for x in s.split(",")],
+            default=None,
+            help="The new shape",
+        )
+        parser_genmask.add_argument(
+            "--voxel_size",
+            dest="voxel_size",
+            type=float,
+            default=1,
+            help="The voxel size",
+        )
+        parser_genmask.add_argument(
+            "--sigma", dest="sigma", type=float, default=0, help="Soften the mask edge"
         )
 
     def add_mask_arguments(subparsers, parser_common):
@@ -860,7 +1052,7 @@ def main(args=None):
             help="The output map file",
         )
         parser_rescale.add_argument(
-            "--mean", dest="mean", type=float, default=None, help="The mean",
+            "--mean", dest="mean", type=float, default=None, help="The mean"
         )
         parser_rescale.add_argument(
             "--sdev",
@@ -870,16 +1062,16 @@ def main(args=None):
             help="The standard deviation",
         )
         parser_rescale.add_argument(
-            "--min", dest="min", type=float, default=None, help="The minimum",
+            "--min", dest="min", type=float, default=None, help="The minimum"
         )
         parser_rescale.add_argument(
-            "--max", dest="max", type=float, default=None, help="The maximum",
+            "--max", dest="max", type=float, default=None, help="The maximum"
         )
         parser_rescale.add_argument(
-            "--scale", dest="scale", type=float, default=None, help="The scale",
+            "--scale", dest="scale", type=float, default=None, help="The scale"
         )
         parser_rescale.add_argument(
-            "--offset", dest="offset", type=float, default=None, help="The offset",
+            "--offset", dest="offset", type=float, default=None, help="The offset"
         )
 
     def add_rotate_arguments(subparsers, parser_common):
@@ -942,6 +1134,14 @@ def main(args=None):
             help="The output map file",
         )
         parser_segment.add_argument(
+            "-m",
+            "--mask",
+            dest="mask",
+            type=str,
+            default=None,
+            help="The output mask file",
+        )
+        parser_segment.add_argument(
             "-n",
             "--num_objects",
             dest="num_objects",
@@ -969,6 +1169,14 @@ def main(args=None):
             type=str,
             default="thresholded.mrc",
             help="The output map file",
+        )
+        parser_threshold.add_argument(
+            "-m",
+            "--mask",
+            dest="mask",
+            type=str,
+            default=None,
+            help="The output mask file",
         )
         parser_threshold.add_argument(
             "-t",
@@ -1081,12 +1289,15 @@ def main(args=None):
     # Add arguments for the sub commands
     add_cc_arguments(subparsers, parser_common)
     add_crop_arguments(subparsers, parser_common)
+    add_dilate_arguments(subparsers, parser_common)
     add_edit_arguments(subparsers, parser_common)
+    add_erode_arguments(subparsers, parser_common)
     add_fft_arguments(subparsers, parser_common)
     add_filter_arguments(subparsers, parser_common)
     add_fit_arguments(subparsers, parser_common)
     add_fsc_arguments(subparsers, parser_common)
     add_fsc3d_arguments(subparsers, parser_common)
+    add_genmask_arguments(subparsers, parser_common)
     add_mask_arguments(subparsers, parser_common)
     add_reorder_arguments(subparsers, parser_common)
     add_rebin_arguments(subparsers, parser_common)
@@ -1115,12 +1326,15 @@ def main(args=None):
     {
         "cc": cc,
         "crop": crop,
+        "dilate": dilate,
         "edit": edit,
+        "erode": erode,
         "fft": fft,
         "filter": filter,
         "fit": fit,
         "fsc": fsc,
         "fsc3d": fsc3d,
+        "genmask": genmask,
         "map2mtz": map2mtz,
         "mask": mask,
         "pdb2map": pdb2map,

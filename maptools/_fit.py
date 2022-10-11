@@ -13,36 +13,39 @@ import maptools.external
 from maptools.util import read
 
 
+__all__ = ["fit"]
+
+
 # Get the logger
 logger = logging.getLogger(__name__)
 
 
 def fit(
-    input_map_filename,
-    input_pdb_filename,
-    output_pdb_filename=None,
-    resolution=1,
-    ncycle=10,
-    mode="rigid_body",
-    log_filename="fit.log",
+    input_map_filename: str,
+    input_pdb_filename: str,
+    output_pdb_filename: str = None,
+    resolution: float = 1,
+    ncycle: int = 10,
+    mode: float = "rigid_body",
+    log_filename: str = "fit.log",
 ):
     """
     Compute the CC between two maps
 
     Args:
-        input_map_filename (str): The input map filename
-        input_pdb_filename (str): The input pdb filename
-        output_filename (str): The output pdb filename
-        resolution (float): The resolution
-        ncycle (float): The number of cycles
-        mode (str): The refinement mode
-        log_filename (str): The log filename
+        input_map_filename: The input map filename
+        input_pdb_filename: The input pdb filename
+        output_filename: The output pdb filename
+        resolution: The resolution
+        ncycle: The number of cycles
+        mode: The refinement mode
+        log_filename: The log filename
 
     """
 
     # Read the grid from the map
     input_map_file = read(input_map_filename)
-    grid = input_map_file.data.shape
+    cell = tuple(input_map_file.header.cella.tolist())
 
     # Get a working directory
     wd = tempfile.mkdtemp()
@@ -65,7 +68,7 @@ def fit(
         maptools.external.pdbset(
             xyzin=os.path.abspath(input_pdb_filename),
             xyzout="pdbset.pdb",
-            cell=tuple(grid),
+            cell=cell,
             stdout=stdout,
             wd=wd,
             param_file="pdbset.dat",

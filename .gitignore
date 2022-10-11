@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore tags
+tags
+
+# setuptools_scm
+_version.py

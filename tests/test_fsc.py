@@ -10,9 +10,9 @@ def test_fsc(ideal_map_filename, rec_map_filename):
         _, output_filename = tempfile.mkstemp()
 
         maptools.fsc(
-            input_filename1=ideal_map_filename,
-            input_filename2=rec_map_filename,
-            output_filename=output_filename,
+            ideal_map_filename,
+            input_map_filename2=rec_map_filename,
+            output_plot_filename=output_filename,
             nbins=20,
             resolution=3,
             axis=axis,

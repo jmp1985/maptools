@@ -5,12 +5,12 @@ import maptools
 
 def test_reorder(ideal_map_filename):
 
-    _, output_filename = tempfile.mkstemp()
+    _, output_map_filename = tempfile.mkstemp()
 
     maptools.reorder(
-        input_filename=ideal_map_filename,
-        output_filename=output_filename,
+        ideal_map_filename,
+        output_map_filename=output_map_filename,
         axis_order=(0, 1, 2),
     )
 
-    assert os.path.exists(output_filename)
+    assert os.path.exists(output_map_filename)

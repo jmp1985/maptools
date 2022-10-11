@@ -9,14 +9,14 @@ def test_fft(ideal_map_filename):
         for shift in [True, False]:
             for normalize in [True, False]:
 
-                _, output_filename = tempfile.mkstemp()
+                _, output_map_filename = tempfile.mkstemp()
 
                 maptools.fft(
-                    input_filename=ideal_map_filename,
-                    output_filename=output_filename,
+                    input_map_filename=ideal_map_filename,
+                    output_map_filename=output_map_filename,
                     mode=mode,
                     shift=shift,
                     normalize=normalize,
                 )
 
-                assert os.path.exists(output_filename)
+                assert os.path.exists(output_map_filename)

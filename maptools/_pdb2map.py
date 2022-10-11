@@ -12,18 +12,26 @@ import tempfile
 import maptools.external
 
 
+__all__ = ["pdb2map"]
+
+
 # Get the logger
 logger = logging.getLogger(__name__)
 
 
-def pdb2map(input_filename, output_filename=None, resolution=1, grid=None):
+def pdb2map(
+    input_pdb_filename: str,
+    output_map_filename: str = None,
+    resolution: int = 1,
+    grid: tuple = None,
+):
     """
     Compute the CC between two maps
 
     Args:
-        input_filename (str): The input pdb filename
-        output_filename (str): The output map filename
-        resolution (float): The resolution
+        input_pdb_filename: The input pdb filename
+        output_map_filename: The output map filename
+        resolution: The resolution
 
     """
 
@@ -32,7 +40,7 @@ def pdb2map(input_filename, output_filename=None, resolution=1, grid=None):
 
     # Setup the pdb file
     maptools.external.pdbset(
-        xyzin=os.path.abspath(input_filename),
+        xyzin=os.path.abspath(input_pdb_filename),
         xyzout="pdbset.pdb",
         cell=tuple(grid),
         stdout=None,
@@ -55,7 +63,7 @@ def pdb2map(input_filename, output_filename=None, resolution=1, grid=None):
     # Convert the mtz file to an mrc file
     maptools.external.mtz2map(
         hklin="hklout.mtz",
-        mapout=os.path.abspath(output_filename),
+        mapout=os.path.abspath(output_map_filename),
         grid=tuple(grid),
         resolution=resolution,
         stdout=None,

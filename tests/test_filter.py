@@ -16,14 +16,14 @@ def test_filter(ideal_map_filename):
             else:
                 resolution = 5, 8
 
-            _, output_filename = tempfile.mkstemp()
+            _, output_map_filename = tempfile.mkstemp()
 
             maptools.filter(
-                input_filename=ideal_map_filename,
-                output_filename=output_filename,
+                input_map_filename=ideal_map_filename,
+                output_map_filename=output_map_filename,
                 filter_type=filter_type,
                 filter_shape=filter_shape,
                 resolution=resolution,
             )
 
-            assert os.path.exists(output_filename)
+            assert os.path.exists(output_map_filename)

@@ -14,6 +14,14 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 
+def is_ccp4_available():
+    """
+    Check if CCP4 is available
+
+    """
+    return os.environ.get("CCP4", None) not in [None, ""]
+
+
 class cd:
     """
     Context manager for changing the current working directory
@@ -74,6 +82,11 @@ def call_ccp4(
     Call a CCP4 style program
 
     """
+
+    # Check if CCP4 is available
+    if not is_ccp4_available():
+        raise RuntimeError("CCP4 is not available")
+
     # Create the working directory
     if wd is None:
         wd = "."
@@ -265,7 +278,7 @@ def pdb2mtz(
             "source EM MB",
             "reso %f" % resolution,
             "sfcalc blur",
-            "make hydrogen no",
+            "bfactor set 10",
             "end",
         ],
         stdout=stdout,
@@ -384,7 +397,7 @@ def refine(
             "rigidbody ncycle %d" % ncycle,
             "BFACtor SET 40.0",
             "reso %f" % resolution,
-            "moni few",
+            "moni medi",
             "rigid auto all",
             "end",
         ]
@@ -403,7 +416,7 @@ def refine(
             "end",
         ]
     else:
-        raise RuntimeError("Unknown method: %s" % method)
+        raise RuntimeError("Unknown mode: %s" % mode)
 
     # Do the refinement
     call_refmac5(
